@@ -12,13 +12,12 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.graphicGraph.GraphPosLengthUtils;
 
-public class AdjaMatrInRadiusTopo {
+public class adjaMatrInRadiusTopo {
 	
 	public static Graph graph = new SingleGraph("graph");
 
 	public static void main(String[] args) {
 		 
-	
 			createGraph(5, true);
 			graph.display(false);
 			

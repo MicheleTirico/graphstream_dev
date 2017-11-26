@@ -11,7 +11,7 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.graphicGraph.GraphPosLengthUtils;
 
-public class AdjaMatrInRadiusDistance {
+public class adjaMatrInRadiusDistance {
 	
 	public static Graph graph = new SingleGraph("graph");
 

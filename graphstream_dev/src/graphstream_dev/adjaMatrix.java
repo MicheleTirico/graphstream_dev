@@ -14,15 +14,12 @@ public class adjaMatrix {
 	public static void computeAdMatrix ( Graph graph  ) {
 		
 		String[] listId = new String[graph.getNodeCount()];
-		
 		int n = graph.getNodeCount();	
-		 matrix = new int[n][n];
-		fillAdjacencyMatrix(graph , matrix , listId);
-		
-	
+		matrix = new int[n][n];
+		fillAdjacencyMatrixWeigth(graph , matrix , listId);
 	}
 	
-	private static void fillAdjacencyMatrix(Graph graph,  int[][] matrix, String[] listId) {
+	private static void fillAdjacencyMatrixWeigth(Graph graph,  int[][] matrix, String[] listId) {
 	
 		for (int i = 0; i < matrix.length; i++) 
 			Arrays.fill(matrix[i], 0);
@@ -44,9 +41,20 @@ public class adjaMatrix {
 
 
 		}
-	public static String[] getListId () { return listId ; }
-	public static int[][] getMatrix () { return matrix ; }
+	private static String[] getListId (Graph graph) { 
+		
+		String[] listId = new String[graph.getNodeCount()];
+		
+		int n = graph.getNodeCount();	
+		matrix = new int[n][n];
+//		fillAdjacencyMatrix(graph , matrix , listId);
+		
+		return listId ; }
+}
 
-	}
+	
+	
+	
+
 
 
