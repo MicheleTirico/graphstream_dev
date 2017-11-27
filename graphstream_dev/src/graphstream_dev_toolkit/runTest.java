@@ -11,14 +11,14 @@ public class runTest extends distanceMatrixInRadius {
 	
 	static Graph graph = new SingleGraph("test");
 	
-	static String idNodeTest = "0_0";
-	static Node nodeTest = graph.getNode(idNodeTest);
+	static String nodeTestStr = "0_0";
+	static Node nodeTest = graph.getNode(nodeTestStr);
 	static int NodeNumber = graph.getNodeCount(); 
-	static double radius = 2 ;
+	static double radius = 3 ;
 	
 	static int[][] adjacencyMatrix = new int [NodeNumber][NodeNumber] ;
 	static double[][] distanceMatrixWeight = new double [NodeNumber][NodeNumber] ;
-	static int[][] distanceMatrixTopo = new int [NodeNumber][NodeNumber] ;
+	static double[][] distanceMatrixTopo = new double [NodeNumber][NodeNumber] ;
 	
 	static int[][] distanceMatrixInRadiusTopo = new int [NodeNumber][NodeNumber] ;
 	static int[][] distanceMatrixInRadiusGeom = new int [NodeNumber][NodeNumber] ;
@@ -26,8 +26,8 @@ public class runTest extends distanceMatrixInRadius {
 	
 	public static void main(String[] args) {
 		
-		createGraph(graph, 2, true);
-		graph.display(false);
+		createGraph(graph, 3, true);
+//		graph.display(false);
 		
 		// adjacency matrix
 		System.out.println("adjacency matrix");
@@ -39,25 +39,25 @@ public class runTest extends distanceMatrixInRadius {
 		distanceMatrixWeight = getDistanceMatrixWeight(graph);
 		printMatrix2dDouble(distanceMatrixWeight);
 		
-		// distance matrix Topo
+		// distance matrix Topo // not yet implemented
 		System.out.println("\n distance matrix topo");
-//		distanceMatrixTopo = getDistanceMatrixTopo(graph);
-		printMatrix2dInt(distanceMatrixTopo);
+		distanceMatrixTopo = getDistanceMatrixTopo(graph);
+		printMatrix2dDouble(distanceMatrixTopo);
 		
 		// distance matrix in radius Topo
 		System.out.println("\n distance matrix in radius topo");
-//		distanceMatrixInRadiusTopo = getDistanceMatrixInRadiusTopo(graph, nodeTest, radius) ;
-//		printMatrix2dInt(distanceMatrixInRadiusTopo);
+		distanceMatrixInRadiusTopo = getDistanceMatrixInRadiusTopo(graph, nodeTestStr, radius) ;
+		printMatrix2dInt(distanceMatrixInRadiusTopo);
 		
 		// distance matrix in radius geom
 		System.out.println("\n distance matrix in radius geom");
-//		distanceMatrixInRadiusGeom = getDistanceMatrixInRadiusGeom(graph, nodeTest, radius) ;
-//		printMatrix2dInt(distanceMatrixInRadiusGeom);
+		distanceMatrixInRadiusGeom = getDistanceMatrixInRadiusGeom(graph, nodeTestStr, radius) ;
+		printMatrix2dInt(distanceMatrixInRadiusGeom);
 		
 		// distance matrix in radius weight
 		System.out.println("\n distance matrix in radius weight");
-//		distanceMatrixInRadiusWeight = getDistanceMatrixInRadiusWeight(graph, nodeTest, radius) ;
-//		printMatrix2dDouble(distanceMatrixInRadiusWeight);
+		distanceMatrixInRadiusWeight = getDistanceMatrixInRadiusWeight(graph, nodeTestStr, radius) ;
+		printMatrix2dDouble(distanceMatrixInRadiusWeight);
 		
 		
 		

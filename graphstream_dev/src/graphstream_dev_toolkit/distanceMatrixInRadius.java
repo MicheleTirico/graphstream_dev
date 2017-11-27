@@ -11,30 +11,32 @@ import org.graphstream.ui.graphicGraph.GraphPosLengthUtils;
 
 public class distanceMatrixInRadius extends distanceMatrix  {
 	
-	public static double [][] getDistanceMatrixInRadiusWeight ( Graph graph, Node nodeTest , double radius ) {
+	public static double [][] getDistanceMatrixInRadiusWeight ( Graph graph, String nodeTestStr , double radius ) {
 		
 		double [][] matrixWeightRad = new double [graph.getNodeCount()] [graph.getNodeCount()] ;		
-		fillDistanceMatrixInRadiusWeight (graph, nodeTest, radius, matrixWeightRad);
+		fillDistanceMatrixInRadiusWeight (graph, nodeTestStr, radius, matrixWeightRad);
 		return matrixWeightRad;
 	}
 	
-	public static int [][] getDistanceMatrixInRadiusTopo ( Graph graph , Node nodeTest , double radius ) {
+	public static int [][] getDistanceMatrixInRadiusTopo ( Graph graph , String nodeTestStr , double radius ) {
 		int n = graph.getNodeCount();	
 		int[][] matrix = new int[n][n];
-		fillDistanceMatrixInRadiusTopo(graph, nodeTest, matrix , radius );
+		fillDistanceMatrixInRadiusTopo(graph, nodeTestStr, matrix , radius );
 		return matrix;	
 	}
 	
-	public static int [][] getDistanceMatrixInRadiusGeom ( Graph graph , Node nodeTest, double radius) {
+	public static int [][] getDistanceMatrixInRadiusGeom ( Graph graph , String nodeTestStr, double radius) {
 		int n = graph.getNodeCount();	
 		int[][] matrix = new int[n][n];
-		fillDistanceMatrixInRadiusGeom(graph, nodeTest, matrix , radius );
+		fillDistanceMatrixInRadiusGeom(graph, nodeTestStr, matrix , radius );
 		return matrix;	
 	}
 	
-// Private methods -----------------------------------------------------------------------------------------------------------------
+// PRIVATE FILL METHODS ------------------------------------------------------------------------------------------------------------------
 	
-	private static void fillDistanceMatrixInRadiusWeight ( Graph graph , Node nodeTest, double radius, double[][] matrixWeightRad ) {
+	private static void fillDistanceMatrixInRadiusWeight ( Graph graph , String nodeTestStr , double radius, double[][] matrixWeightRad ) {
+		
+		Node nodeTest = graph.getNode(nodeTestStr);
 		
 		ArrayList <String> listId = new ArrayList<String> ();	
 		for ( Node n : graph.getEachNode()) {	listId.add(n.getId()) ;	}
@@ -48,11 +50,9 @@ public class distanceMatrixInRadius extends distanceMatrix  {
 				Node n2 = graph.getNode(IdN) ;
 				double distN1 = distanceMatrix.getDistWeight(graph, nodeTest, n2) ; //				System.out.println(distN1);
 				
-				System.out.println(distN1);
 				for ( int y = 0 ; y < nodeNumber ; y++ ) {
 
 					if (  distN1 < radius ) {
-						System.out.println("dist " + distN1 + " x " + x + " y " + y);
 						matrixWeightRad[x][y] = matrixWeight[x][y] ;
 						matrixWeightRad[y][x] = matrixWeight[y][x] ;
 					}
@@ -64,7 +64,9 @@ public class distanceMatrixInRadius extends distanceMatrix  {
 			}
 		}
 	
-private static void fillDistanceMatrixInRadiusGeom(Graph graph, Node  nodeTest, int[][] matrix, double radius ) {
+	private static void fillDistanceMatrixInRadiusGeom(Graph graph, String  nodeTestStr, int[][] matrix, double radius ) {
+		
+		Node nodeTest = graph.getNode(nodeTestStr);
 		
 		for (int i = 0; i < matrix.length; i++) 
 			Arrays.fill(matrix[i], 0);
@@ -87,59 +89,64 @@ private static void fillDistanceMatrixInRadiusGeom(Graph graph, Node  nodeTest, 
 			}
 		// remove row with all values == 0
 		}
-private static void fillDistanceMatrixInRadiusTopo(Graph graph, Node nodeTest, int[][] matrix, double radius ) {
+
+	private static void fillDistanceMatrixInRadiusTopo(Graph graph, String nodeTestStr, int[][] matrix, double radius ) {
 	
-	for (int i = 0; i < matrix.length; i++) 
-		Arrays.fill(matrix[i], 0);
+		Node nodeTest = graph.getNode(nodeTestStr);
+	
+		for (int i = 0; i < matrix.length; i++) 
+			Arrays.fill(matrix[i], 0);
 
-	for (Edge e : graph.getEachEdge()) {
+		for (Edge e : graph.getEachEdge()) {
 
-		int i = e.getSourceNode().getIndex();
-		int j = e.getTargetNode().getIndex();
-		Node n1 = graph.getNode(i);
-		Node n2 = graph.getNode(j);
+			int i = e.getSourceNode().getIndex();
+			int j = e.getTargetNode().getIndex();
+			Node n1 = graph.getNode(i);
+			Node n2 = graph.getNode(j);
 		
-		double distN1 = getDistTopo ( graph, n1 , nodeTest ) ;
-		double distN2 = getDistTopo ( graph, n2 , nodeTest ) ;
+			double distN1 = getDistTopo ( graph, n1 , nodeTest ) ;
+			double distN2 = getDistTopo ( graph, n2 , nodeTest ) ;
 			
-		if  ( distN1 <= radius && distN2 <= radius ) {			
-			matrix[i][j]++;		
-			if (!e.isDirected())
-				matrix[j][i]++;
+			if  ( distN1 <= radius && distN2 <= radius ) {			
+				matrix[i][j]++;		
+				if (!e.isDirected())
+					matrix[j][i]++;
+				}
 			}
-		}
 	// remove row with all values == 0
+		}
+
+// PRIVATE SERVICE METHODS ------------------------------------------------------------------------------------------------------------------
+		
+	private static double getDistGeom ( Node n1 , Node n2 ) {
+	
+		// coordinate of node n1
+		double [] n1Coordinate = GraphPosLengthUtils.nodePosition(n1) ;
+		double x1 = n1Coordinate [0];
+		double y1 = n1Coordinate [1];
+		double z1 = n1Coordinate [2];
+			
+		// coordinate of node n2
+		double [] n2Coordinate = GraphPosLengthUtils.nodePosition(n2) ;
+		double x2 = n2Coordinate [0];
+		double y2 = n2Coordinate [1];
+		double z2 = n2Coordinate [2];
+			
+		// calculate distance
+		double distSq = Math.pow( ( x1 - x2 ), 2 )  + Math.pow( ( y1 - y2 ), 2 ) + Math.pow( ( z1 - z2 ), 2 ) ;
+		double dist = Math.sqrt( distSq );
+		return dist;
 	}
 
-private static double getDistGeom ( Node n1 , Node n2 ) {
+	private static double getDistTopo ( Graph graph, Node n1, Node n2) {
 	
-	// coordinate of node n1
-	double [] n1Coordinate = GraphPosLengthUtils.nodePosition(n1) ;
-	double x1 = n1Coordinate [0];
-	double y1 = n1Coordinate [1];
-	double z1 = n1Coordinate [2];
-			
-	// coordinate of node n2
-	double [] n2Coordinate = GraphPosLengthUtils.nodePosition(n2) ;
-	double x2 = n2Coordinate [0];
-	double y2 = n2Coordinate [1];
-	double z2 = n2Coordinate [2];
-			
-	// calculate distance
-	double distSq = Math.pow( ( x1 - x2 ), 2 )  + Math.pow( ( y1 - y2 ), 2 ) + Math.pow( ( z1 - z2 ), 2 ) ;
-	double dist = Math.sqrt( distSq );
-	return dist;
-}
+		Dijkstra dist = new Dijkstra();
+	
+		dist.init(graph);
+		dist.setSource(n1);
+		dist.compute();
 
-private static double getDistTopo ( Graph graph, Node n1, Node n2) {
-	
-	Dijkstra dist = new Dijkstra();
-	
-	dist.init(graph);
-	dist.setSource(n1);
-	dist.compute();
-
-	return dist.getPathLength(n2);	
-}
+		return dist.getPathLength(n2);	
+	}
 
 }
