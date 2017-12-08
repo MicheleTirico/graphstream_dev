@@ -1,6 +1,8 @@
-package graphstream_dev;
+package graphstream_dev_test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 import org.graphstream.algorithm.Toolkit;
 import org.graphstream.algorithm.generator.Generator;
@@ -11,7 +13,9 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.graphicGraph.GraphPosLengthUtils;
 
-public class adjaMatrInRadiusDistance {
+import static org.graphstream.algorithm.Toolkit.*;
+
+public class testAdjaMatrix {
 	
 	public static Graph graph = new SingleGraph("graph");
 
@@ -106,6 +110,5 @@ public class adjaMatrInRadiusDistance {
 		for(int i = 0 ; i < size ; i++) { 	gsGen.nextEvents(); 	}
 		gsGen.end();
 	}
-
 
 }

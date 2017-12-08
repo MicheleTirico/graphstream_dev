@@ -27,7 +27,7 @@ public class runTest extends distanceMatrixInRadius {
 	public static void main(String[] args) {
 		
 		createGraph(graph, 3, true);
-//		graph.display(false);
+		graph.display(false);
 		
 		// adjacency matrix
 		System.out.println("adjacency matrix");

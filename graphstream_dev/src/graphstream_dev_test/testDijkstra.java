@@ -1,4 +1,4 @@
-package graphstream_dev;
+package graphstream_dev_test;
 
 import org.graphstream.algorithm.Dijkstra;
 import org.graphstream.algorithm.Dijkstra.Element;
@@ -10,7 +10,7 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.graphicGraph.GraphPosLengthUtils;
 
-public class testDijWeig {
+public class testDijkstra {
 	
 	public static Graph g = new SingleGraph("graph");
 

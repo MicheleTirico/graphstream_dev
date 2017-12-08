@@ -1,4 +1,4 @@
-package graphstream_dev;
+package graphstream_dev_test;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package graphstream_dev_io;
+package graphstream_dev_io_test;
 
 import java.io.IOException;
 
