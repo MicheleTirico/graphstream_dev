@@ -15,14 +15,12 @@ public class testDFS {
 
 	static Graph graph = new SingleGraph("graph");
 	
-	public static void main (String[] args)  {
+	public static void main (String[] args) throws InterruptedException  {
 		
-		graphstream_dev_toolkit.runTest.createGraph(graph, 10, true); 
-		
-		
-		Node startNode = graph.getNode("0_0");
-//		DepthFirstIterator<Node> iter = new DepthFirstIterator<>(startNode);
-		
+		toolkit.createGraphGrid(graph, 10, true); 
+//		toolkit.createGraphRandom(graph, 100);
+		Node startNode = graph.getNode("6_6");
+
 		  // display the graph before running the search
         graph.display(false);
         graph.addAttribute("ui.stylesheet","" +
@@ -30,19 +28,22 @@ public class testDFS {
                 "   fill-color: rgb(200,39,65);\n" +
                 "   size: 3px;" +
                 "}");
-	
-//		while ( iter.hasNext()) {	Node n = iter.next();	for(Edge e: n.getEachEdge()){ 	e.addAttribute("ui.class","highlight"); 	Thread.sleep(100); }
-			
-
-        ArrayList<String> arrId = DFSinRadius.getIdInRadiusTopo(graph, startNode, 2);
         
-        ArrayList<String> arrIdWei = DFSinRadius.getIdInRadiusWeight(graph, startNode, 1.5);
-        ArrayList<String> arrIdGeom = DFSinRadius.getIdInRadiusGeom(startNode, 1.5);
+        
+
+
+        System.out.println("list of id in radius topo");
+        ArrayList<String> arrId = DFSinRadius.getIdInRadiusTopo(graph, startNode, 2);
         System.out.println(arrId);
-        System.out.println(arrIdWei);
-        System.out.println(arrIdGeom);
+        
+        System.out.println("\n" + "list of id in radius weight");
+//        ArrayList<String> arrIdWei = DFSinRadius.getIdInRadiusWeight(graph, startNode, 2); System.out.println(arrIdWei);
+        
+        System.out.println("\n" + "list of id in radius geom");
+//        ArrayList<String> arrIdGeom = DFSinRadius.getIdInRadiusGeom(startNode, 1.5);        System.out.println(arrIdGeom);
 	}
 		
+	
 	
 	
 	
