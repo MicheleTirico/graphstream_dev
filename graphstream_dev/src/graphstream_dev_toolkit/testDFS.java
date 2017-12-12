@@ -37,16 +37,10 @@ public class testDFS {
         System.out.println(arrId);
         
         System.out.println("\n" + "list of id in radius weight");
-//        ArrayList<String> arrIdWei = DFSinRadius.getIdInRadiusWeight(graph, startNode, 2); System.out.println(arrIdWei);
+        ArrayList<String> arrIdWei = DFSinRadius.getIdInRadiusWeight(graph, startNode, 2); System.out.println(arrIdWei);
         
         System.out.println("\n" + "list of id in radius geom");
-//        ArrayList<String> arrIdGeom = DFSinRadius.getIdInRadiusGeom(startNode, 1.5);        System.out.println(arrIdGeom);
+        ArrayList<String> arrIdGeom = DFSinRadius.getIdInRadiusGeom(startNode, 1.5);        System.out.println(arrIdGeom);
 	}
-		
-	
-	
-	
-	
-	
-	
+
 }
