@@ -26,7 +26,7 @@ public class testMatrix extends distanceMatrixInRadius {
 	
 	public static void main(String[] args) {
 		
-		toolkit.createGraph(graph, 3, true);
+		toolkit.createGraphGrid(graph, 3, true);
 		graph.display(false);
 		
 		// adjacency matrix
