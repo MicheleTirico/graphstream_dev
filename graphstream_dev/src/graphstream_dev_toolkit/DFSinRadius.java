@@ -1,12 +1,9 @@
 package graphstream_dev_toolkit;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.swing.event.TreeWillExpandListener;
 
 import org.graphstream.graph.DepthFirstIterator;
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
